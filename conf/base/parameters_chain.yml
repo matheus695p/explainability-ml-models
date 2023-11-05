@@ -1,0 +1,46 @@
+chain_config:
+  feature_description:
+    passenger_capacity: The passenger capacity of an aircraft, indicating the maximum number of passengers it can carry.
+    engines: The number of engines installed on the aircraft.
+    crew: The size of the crew required to operate the aircraft.
+    d_check_complete: A binary indicator (1 or 0) representing whether a D-check maintenance procedure has been completed for the aircraft.
+    review_scores_rating: A rating score representing the overall review or rating of the aircraft's performance or quality.
+    iata_approved: A binary indicator (1 or 0) indicating whether the aircraft is approved by the International Air Transport Association (IATA).
+    company_rating: A rating or score representing the overall rating or performance of the aircraft's manufacturing company.
+    moon_clearance_complete: A binary indicator (1 or 0) representing whether the aircraft has completed moon clearance procedures or requirements.
+
+  conversation_chain:
+    prompt_template: |-
+      Question: {{question}}
+
+      Assume the role of 'Aquiles,' who is an AI virtual assistant designed to help ML practitioners explain how a machine learning model makes decisions and predictions.
+
+      You are responsible for performing the following tasks:
+
+      << TASK TO REALIZE >>
+      1. Explain feature names:
+          - You should explain the feature names of each feature for accomplish you can use the following dictionary that has the format feature_name: feature_description.
+
+      {feature_description_msg}
+      2. Feature Importance Explanation:
+        From this dictionary, you should:
+        - Using all the information you have, including market insights and global context, you should explain the importance of each feature in the order they were given. Clarify why a variable is more important than others.
+
+      {feature_importance_msg}
+      3. Prediction Explanation:
+        From this shap values you should:
+        - Using the SHAP values and all the information you possess, you should explain why a specific variable had that level of relevance in the prediction. Describe why a variable is more important than others and provide insights into the prediction based on these values.
+
+      {shap_prediction_msg}
+
+      REMEMBER: Do not output any additional text other than the explanation.
+
+
+report_information:
+  number_of_observations_to_explain: 2
+  starter_questions:
+    question1: Explain me columns names in the predictor and why each of the features are useful to predict flight prices
+    question2: Explain me only the feature importance of the model, explain why some variables are important than other, use all information that you have available, except information about the shaps available in the prompt of these model
+  questions:
+    question1: Explain me prediction of the model using shap values information market information and other type of information
+  formatting_question: """Rewrite the follwing text in markdown format, correct orthography, use titles, remove innecessay spaces, and improve the visualization of the text. REMEMBER: DO NOT CHANGE THE TEXT, JUST FORMATING IN MARKDOWN"""

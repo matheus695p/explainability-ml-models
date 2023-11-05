@@ -63,6 +63,10 @@ def generate_shap_information(
     shap_values_df_train = create_shap_dataframe(shap_values=shap_values_train, features=features)
     shap_values_df_test = create_shap_dataframe(shap_values=shap_values_test, features=features)
 
+    # add prediction to the shap values pred
+    shap_values_df_train["prediction"] = regressor.predict(X_train)
+    shap_values_df_test["prediction"] = regressor.predict(X_test)
+
     # feature importance df
     feature_importance_df = calculate_feature_importance_df(
         shap_values=shap_values_train, features=features

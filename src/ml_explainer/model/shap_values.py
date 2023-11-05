@@ -73,3 +73,51 @@ def calculate_feature_importance_df(shap_values: tp.List[list], features: tp.Lis
     )
 
     return feature_importance_df
+
+
+def generate_shap_message(
+    shap_info: pd.DataFrame,
+) -> str:
+    """
+    Generate a message explaining the SHAP values in the shap_info DataFrame.
+
+    Parameters:
+    - shap_info (pd.DataFrame): DataFrame containing SHAP values and feature names.
+
+    Returns:
+    - str: The generated message explaining the SHAP values.
+    """
+    msg = ""
+    shap_info = shap_info.reset_index(drop=True)
+    for col in shap_info.columns:
+        value = str(round(shap_info[col].iloc[0], 3))
+        if value.startswith("-"):
+            msg += f"{col} (has negative influence on the prediction) = {value}\n"
+        else:
+            msg += f"{col} (has positive influence on the prediction) = {value}\n"
+
+    return msg
+
+
+def generate_msg_by_index(df: pd.DataFrame, column: str, additional_msg: str = ""):
+    """
+    Generate a message explaining feature importance values in the provided DataFrame.
+
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing feature importance values.
+    - additional_msg (str): An additional message to include after each feature's value.
+
+    Returns:
+    - str: The generated message explaining feature importance values.
+    """
+    msg = ""
+    for feature in df.index:
+        value = df.loc[feature, column]
+        if isinstance(value, float) or isinstance(value, int):
+            value = str(round(df.loc[feature, column], 3))
+        if value.startswith("-"):
+            msg += f"{feature} = {value} {additional_msg}\n"
+        else:
+            msg += f"{feature} = {value} {additional_msg}\n"
+
+    return msg
