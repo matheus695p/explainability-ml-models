@@ -48,7 +48,7 @@ Navigate to the project directory and run the following command:
 
 ```bash
 pip install -r src/requirements.txt
-
+```
 
 ## Generate a report
 ```
@@ -56,6 +56,7 @@ kedro run
 ```
 
 Specifically to the report:
+
 
 ```
 kedro run --pipeline explainer --nodes=explainability_report
