@@ -30,7 +30,7 @@ def generate_shap_beeswarm_plot(shap_values: tp.List[list], max_display=20):
     return fig
 
 
-def create_shap_dataframe(shap_values: tp.List[list], X_train: pd.DataFrame):
+def create_shap_dataframe(shap_values: tp.List[list], X_test: pd.DataFrame):
     """
     Create a DataFrame from a list of SHAP values.
 
@@ -48,7 +48,7 @@ def create_shap_dataframe(shap_values: tp.List[list], X_train: pd.DataFrame):
     df_base_value = pd.concat(base_values, axis=0).reset_index(drop=True)
 
     shaps_df = [
-        pd.DataFrame([shap_values[i].values], columns=X_train.columns)
+        pd.DataFrame([shap_values[i].values], columns=X_test.columns)
         for i in range(len(shap_values))
     ]
     shap_df = pd.concat(shaps_df, axis=0, ignore_index=False).reset_index(drop=True)

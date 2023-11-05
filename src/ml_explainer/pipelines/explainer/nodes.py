@@ -50,8 +50,8 @@ def generate_shap_information(
     explainer = shap.Explainer(regressor.predict, X_train.astype(float))
     shap_values = explainer(X_test.astype(float))
 
-    shap_values_df = create_shap_dataframe(shap_values, X_test)
-    fig = generate_shap_beeswarm_plot(shap_values_df)
+    shap_values_df = create_shap_dataframe(shap_values=shap_values, X_test=X_test)
+    fig = generate_shap_beeswarm_plot(shap_values=shap_values, max_display=20)
 
     return dict(
         shap_values=shap_values_df,
