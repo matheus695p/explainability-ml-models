@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the `ml_explainer` project, a powerful tool for generating explainability reports for machine learning models. This Kedro project was inspired by the [spaceflights tutorial](https://docs.kedro.org/en/stable/tutorial/spaceflights_tutorial.html) and was generated using `Kedro 0.18.14`.
+Welcome to the `ml_explainer` project, a tool for generating explainability reports for machine learning models. This Kedro project was inspired by the [spaceflights tutorial](https://docs.kedro.org/en/stable/tutorial/spaceflights_tutorial.html) and was generated using `Kedro 0.18.14`.
 
 ### Project Objective
 
