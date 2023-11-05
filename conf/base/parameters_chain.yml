@@ -5,8 +5,8 @@ report_information:
     question2: Explain me only the feature importance of the model, explain why some variables are important than other, use all information that you have available, except information about the shaps available in the prompt of these model
   questions:
     question1: Explain me prediction of the model using shap values information market information and other type of information
-  formatting_question: """Rewrite the follwing text in markdown format, correct orthography, use titles, remove innecessay spaces, and improve the visualization of the text. REMEMBER: DO NOT CHANGE THE TEXT, JUST FORMATING IN MARKDOWN"""
-
+  formatting_question: |-
+    Rewrite the following text in markdown format, correct orthography, use titles, remove innecessay spaces, and improve the visualization of the text. REMEMBER: DO NOT CHANGE THE TEXT, JUST FORMATTING IN MARKDOWN
 
 chain_config:
   feature_description:
