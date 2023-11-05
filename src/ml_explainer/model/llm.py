@@ -57,7 +57,6 @@ def answer_question_with_llm(
         feature_importance_msg=feature_importance_msg,
         shap_prediction_msg=shap_prediction_msg,
     )
-
     # Initialize a PromptTemplate
     prompt = PromptTemplate(input_variables=["question"], template=template_formatted)
 
@@ -66,7 +65,6 @@ def answer_question_with_llm(
 
     # Generate the response based on the provided question
     result = chain.run(question=question)
-
     # Combine the result into the final answer
     final_answer = result + "\n"
 
@@ -138,11 +136,18 @@ def generate_explainability_report(
 
     # answer all the particular question to the inference
     for prediction_index in range(number_of_observations_to_explain):
+
         shap_info = shap_df.iloc[prediction_index].to_frame().T
         shap_prediction_msg = generate_shap_message(shap_info=shap_info)
 
         for question_key, question in questions.items():
+            # define llm
+            llm = OpenAI(temperature=0)
+            # template information
+            template = parameters["conversation_chain"]["prompt_template"]
+
             final_answer += f"Prediction inference number {prediction_index} {question_key}" + "\n"
+
             answer = answer_question_with_llm(
                 template=template,
                 feature_description_msg=feature_description_msg,
@@ -151,6 +156,11 @@ def generate_explainability_report(
                 llm=llm,
                 question=question,
             )
+            answer = answer.replace(
+                "SHAP Values Explanation",
+                f"**SHAP Values Explanation Prediction index {prediction_index} {question_key}**",
+            )
+            logger.info("==================== Final Anser  ====================")
             logging_str = f"{question_key} / {question}: {answer}"
             logger.info(logging_str)
             final_answer += answer

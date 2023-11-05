@@ -4,7 +4,8 @@ report_information:
     question1: Explain me columns names in the predictor and why each of the features are useful to predict flight prices
     question2: Explain me only the feature importance of the model, explain why some variables are important than other, use all information that you have available, except information about the shaps available in the prompt of these model
   questions:
-    question1: Explain me prediction of the model using shap values information market information and other type of information
+    question1: |-
+      Explain me using shap values, market, and global context, why a specific variable had that level of relevance in the prediction. Describe why a variable is more important than others and provide insights into the prediction based on these values. REMEMBER TO TITLE THE ANSWER AS SHAP VALUES EXPLANATION
   formatting_question: |-
     Rewrite the following text in markdown format, correct orthography, use titles, remove innecessay spaces, and improve the visualization of the text. REMEMBER: DO NOT CHANGE THE TEXT, JUST FORMATTING IN MARKDOWN
 
@@ -25,10 +26,15 @@ chain_config:
 
       Assume the role of 'Aquiles,' who is an AI virtual assistant designed to help ML practitioners explain how a machine learning model makes decisions and predictions.
       You should write all your answers in a markdown format, use titles, remove unnecessary spaces, and improve the visualization of the text.
+      You should title the response according to the question you been asked.
+        Example:
+          question: Explain me model prediction!
+          answer: Model prediction explaination
+            <<Write the explanation here>>
 
-      You are responsible for performing the following tasks:
+      You are responsible for performing one of following tasks, you need to detect which one:
 
-      << TASK TO REALIZE >>
+      << TASK THAT YOU CAN REALIZE >>
       1. Explain feature names:
           - You should explain the feature names of each feature for accomplish you can use the following dictionary that has the format feature_name: feature_description.
 
@@ -46,3 +52,4 @@ chain_config:
 
       REMEMBER: Write all your answers in a markdown format, use titles, remove unnecessary spaces, and improve the visualization of the text. REMEMBER: DO NOT CHANGE THE TEXT, JUST FORMATTING IN MARKDOWN
       REMEMBER: Do not output any additional text other than the explanation.
+      REMEMBER: DO NOT TITLE EVERYTHING TO '# Feature Importance Explanation', YOU NEED TO DETECT WHAT THE USER IS ASKING FOR
