@@ -18,7 +18,7 @@ The primary goal of this project is to create an ML package that can automatical
 
 ## Example of Explanability report generated using GenAI
 
-[Interpretability Report](https://github.com/matheus695p/explainability-ml-models/blob/main/ExplainabilityReport.md)
+[Interpretability Report Output Example](https://github.com/matheus695p/explainability-ml-models/blob/main/ExplainabilityReport.md)
 
 ### Getting Started
 
