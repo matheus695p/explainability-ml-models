@@ -50,7 +50,7 @@ Navigate to the project directory and run the following command:
 pip install -r src/requirements.txt
 ```
 
-## Generate a report
+## Generate a GenAI interpretability report
 ```
 kedro run
 ```
