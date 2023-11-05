@@ -158,7 +158,7 @@ def generate_explainability_report(
             )
             answer = answer.replace(
                 "SHAP Values Explanation",
-                f"**SHAP Values Explanation Prediction index {prediction_index} {question_key}**",
+                f"### SHAP Values Explanation Prediction index {prediction_index} / question: {question}",
             )
             logger.info("==================== Final Anser  ====================")
             logging_str = f"{question_key} / {question}: {answer}"

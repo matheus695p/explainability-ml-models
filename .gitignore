@@ -155,3 +155,5 @@ stats.json
 notebooks/**
 
 explainability_report_unformatted.md
+
+.vscode/**
