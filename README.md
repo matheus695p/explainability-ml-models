@@ -20,7 +20,7 @@ The primary goal of this project is to create an ML package that can automatical
 
 [Interpretability Report Output Example](https://github.com/matheus695p/explainability-ml-models/blob/main/ExplainabilityReport.md)
 
-### Getting Started
+## Getting Started
 
 To get started with this project, follow these steps:
 
@@ -50,7 +50,7 @@ Navigate to the project directory and run the following command:
 pip install -r src/requirements.txt
 ```
 
-## Generate a GenAI interpretability report
+### Generate a GenAI interpretability report
 ```
 kedro run
 ```
