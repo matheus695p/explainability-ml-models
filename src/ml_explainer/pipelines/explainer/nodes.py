@@ -5,6 +5,7 @@ import shap
 from sklearn.base import RegressorMixin
 
 from ml_explainer.model.shap_values import (
+    calculate_feature_importance_df,
     create_shap_dataframe,
     generate_shap_beeswarm_plot,
 )
@@ -47,13 +48,34 @@ def generate_shap_information(
     plt.show()  # Display the SHAP beeswarm plot
     ```
     """
-    explainer = shap.Explainer(regressor.predict, X_train.astype(float))
-    shap_values = explainer(X_test.astype(float))
+    # resampling to speed up computing
+    X_train = X_train.sample(7000, replace=True)
 
-    shap_values_df = create_shap_dataframe(shap_values=shap_values, X_test=X_test)
-    fig = generate_shap_beeswarm_plot(shap_values=shap_values, max_display=20)
+    # shap explainer
+    features = list(X_train.columns)
+    explainer = shap.Explainer(regressor.predict, X_train.astype(float))
+
+    # shap values
+    shap_values_train = explainer(X_train.astype(float))
+    shap_values_test = explainer(X_test.astype(float))
+
+    # shap dataframes
+    shap_values_df_train = create_shap_dataframe(shap_values=shap_values_train, features=features)
+    shap_values_df_test = create_shap_dataframe(shap_values=shap_values_test, features=features)
+
+    # feature importance df
+    feature_importance_df = calculate_feature_importance_df(
+        shap_values=shap_values_train, features=features
+    )
+
+    # shap figures
+    fig_test = generate_shap_beeswarm_plot(shap_values=shap_values_train, max_display=20)
+    fig_train = generate_shap_beeswarm_plot(shap_values=shap_values_test, max_display=20)
 
     return dict(
-        shap_values=shap_values_df,
-        fig_shap=fig,
+        shap_values_df_train=shap_values_df_train,
+        shap_values_df_test=shap_values_df_test,
+        fig_shap_test=fig_test,
+        fig_shap_train=fig_train,
+        feature_importance=feature_importance_df,
     )

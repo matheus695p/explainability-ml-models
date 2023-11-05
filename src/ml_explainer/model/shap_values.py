@@ -30,7 +30,7 @@ def generate_shap_beeswarm_plot(shap_values: tp.List[list], max_display=20):
     return fig
 
 
-def create_shap_dataframe(shap_values: tp.List[list], X_test: pd.DataFrame):
+def create_shap_dataframe(shap_values: tp.List[list], features: tp.List[str]):
     """
     Create a DataFrame from a list of SHAP values.
 
@@ -41,18 +41,35 @@ def create_shap_dataframe(shap_values: tp.List[list], X_test: pd.DataFrame):
     Returns:
     - pandas.DataFrame: The resulting DataFrame containing base values and SHAP values.
     """
-    base_values = [
-        pd.DataFrame([shap_values[i].base_values], columns=["base_value"])
-        for i in range(len(shap_values))
-    ]
-    df_base_value = pd.concat(base_values, axis=0).reset_index(drop=True)
+    shap_df = pd.DataFrame(shap_values.values, columns=features)
+    shap_df = pd.concat(
+        [pd.DataFrame(shap_values.base_values, columns=["base_value"]), shap_df], axis=1
+    )
+    return shap_df.reset_index(drop=True)
 
-    shaps_df = [
-        pd.DataFrame([shap_values[i].values], columns=X_test.columns)
-        for i in range(len(shap_values))
-    ]
-    shap_df = pd.concat(shaps_df, axis=0, ignore_index=False).reset_index(drop=True)
 
-    df = pd.concat([df_base_value, shap_df], axis=1, ignore_index=False).reset_index(drop=True)
+def calculate_feature_importance_df(shap_values: tp.List[list], features: tp.List[str]):
+    """
+    Calculate feature importances DataFrame from SHAP values.
 
-    return df
+    Parameters:
+    - shap_values (shap.Explanation or pd.DataFrame): SHAP values or DataFrame with SHAP values.
+    - X_train (pd.DataFrame): The original training data with column names.
+
+    Returns:
+    - pd.DataFrame: The feature importances DataFrame sorted by importance.
+    """
+    shap_df = create_shap_dataframe(shap_values=shap_values, features=features)
+
+    shap_df[features] = shap_df[features].apply(abs)
+    shap_df["shap_movement"] = shap_df[features].apply(abs).sum(axis=1)
+
+    for col in features:
+        shap_df[col] = shap_df[col] / shap_df["shap_movement"] * 100
+
+    feature_importance_df = pd.DataFrame(shap_df[features].mean(), columns=["feature_importance"])
+    feature_importance_df = feature_importance_df.sort_values(
+        by=["feature_importance"], ascending=False
+    )
+
+    return feature_importance_df

@@ -81,13 +81,27 @@ y_test:
   type: pandas.ParquetDataset
   filepath: data/05_model_input/y_test.pq
 
-shap_values:
+shap_values_df_train:
   type: pandas.ParquetDataset
-  filepath: data/07_model_output/shap_values.pq
+  filepath: data/07_model_output/shap_values_df_train.pq
 
-shap_values_figure:
+shap_values_df_test:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/shap_values_df_test.pq
+
+feature_importance:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/feature_importance.pq
+
+fig_shap_train:
   type: matplotlib.MatplotlibWriter
-  filepath: data/08_reporting/shap_values_figure.png
+  filepath: data/08_reporting/fig_shap_train.png
+  save_args:
+    format: png
+
+fig_shap_test:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/fig_shap_test.png
   save_args:
     format: png
 
