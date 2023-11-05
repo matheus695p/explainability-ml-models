@@ -14,7 +14,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
             node(
                 func=train_model,
-                inputs=["X_train", "y_train", "params:model_hyperparameters.stacked_model"],
+                inputs=[
+                    "X_train",
+                    "y_train",
+                    "params:model_hyperparameters.stacked_model",
+                ],
                 outputs="regressor",
                 name="train_model_node",
             ),

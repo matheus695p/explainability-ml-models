@@ -65,6 +65,32 @@ model_input_table:
   type: pandas.ParquetDataset
   filepath: data/03_primary/model_input_table.pq
 
+X_train:
+  type: pandas.ParquetDataset
+  filepath: data/05_model_input/X_train.pq
+
+X_test:
+  type: pandas.ParquetDataset
+  filepath: data/05_model_input/X_test.pq
+
+y_train:
+  type: pandas.ParquetDataset
+  filepath: data/05_model_input/y_train.pq
+
+y_test:
+  type: pandas.ParquetDataset
+  filepath: data/05_model_input/y_test.pq
+
+shap_values:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/shap_values.pq
+
+shap_values_figure:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/shap_values_figure.png
+  save_args:
+    format: png
+
 regressor:
   type: pickle.PickleDataset
   filepath: data/06_models/regressor.pickle
