@@ -28,8 +28,8 @@ def create_pipeline(**kwargs) -> Pipeline:
                     report_params="params:report_information",
                 ),
                 outputs=dict(
-                    report="shap_values_df_train",
-                    final_answer="shap_values_df_test",
+                    report="explainability_report",
+                    final_answer="explainability_report_unformatted",
                 ),
                 name="explainability_report",
             ),
