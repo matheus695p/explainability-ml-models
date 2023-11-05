@@ -1,6 +1,8 @@
 import os
 
 import openai
+import typing as tp
+import pandas as pd
 from dotenv import find_dotenv, load_dotenv
 from langchain.chains.llm import LLMChain
 from langchain.llms import OpenAI
@@ -68,8 +70,34 @@ def answer_question_with_llm(
     return final_answer
 
 
-def generate_explainability_report(shap_df, feature_importance_df, parameters, report_params):
+def generate_explainability_report(
+    shap_df: pd.DataFrame,
+    feature_importance_df: pd.DataFrame,
+    parameters: tp.Dict[str, tp.Any],
+    report_params: tp.Dict[str, tp.Dict],
+):
+    """
+    Generate an explainability report and final answer for a machine learning model.
 
+    Args:
+        shap_df (pd.DataFrame): DataFrame containing SHAP values.
+        feature_importance_df (pd.DataFrame): DataFrame containing feature importance values.
+        parameters (tp.Dict[str, tp.Any]): Parameters for the report generation.
+        report_params (tp.Dict[str, tp.Any]): Parameters specific to the report.
+
+    Returns:
+        tp.Dict[str, str]: A dictionary containing the report and final answer.
+
+    Example:
+        shap_df = pd.DataFrame(...)  # Provide SHAP values DataFrame
+        feature_importance_df = pd.DataFrame(...)  # Provide feature importance DataFrame
+        parameters = {...}  # Provide parameters
+        report_params = {...}  # Provide report parameters
+
+        result = generate_explainability_report(shap_df, feature_importance_df, parameters, report_params)
+        print(result["report"])
+        print(result["final_answer"])
+    """
     number_of_observations_to_explain = report_params["number_of_observations_to_explain"]
     feature_description = parameters["feature_description"]
 
