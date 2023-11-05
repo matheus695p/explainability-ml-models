@@ -115,5 +115,3 @@ kedro jupyter convert --all
 To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
 
 > *Note:* Your output cells will be retained locally.
-
-

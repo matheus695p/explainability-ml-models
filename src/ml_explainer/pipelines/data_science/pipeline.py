@@ -8,13 +8,13 @@ def create_pipeline(**kwargs) -> Pipeline:
         [
             node(
                 func=split_data,
-                inputs=["model_input_table", "params:model_options"],
+                inputs=["model_input_table", "params:model_hyperparameters"],
                 outputs=["X_train", "X_test", "y_train", "y_test"],
                 name="split_data_node",
             ),
             node(
                 func=train_model,
-                inputs=["X_train", "y_train"],
+                inputs=["X_train", "y_train", "params:model_hyperparameters.stacked_model"],
                 outputs="regressor",
                 name="train_model_node",
             ),

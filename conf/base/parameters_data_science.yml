@@ -1,6 +1,6 @@
-model_options:
+model_hyperparameters:
   test_size: 0.2
-  random_state: 3
+  random_state: 42
   features:
     - engines
     - passenger_capacity
@@ -10,3 +10,39 @@ model_options:
     - iata_approved
     - company_rating
     - review_scores_rating
+  target: price
+
+  # params for stacking
+  stacked_model:
+
+    scaler:
+      class: sklearn.preprocessing.StandardScaler
+      kwargs:
+
+    imputer:
+      class: sklearn.impute.SimpleImputer
+      kwargs:
+        strategy: median
+
+    model1:
+      class: xgboost.XGBRegressor
+      kwargs:
+        n_estimators: 100
+        eta: 0.001
+        min_child_weight: 200
+        max_depth: 3
+        subsample: 0.6
+        reg_lambda: 0.1
+        reg_alpha: 0.001
+        random_state: ${GLOBAL_SEED}
+
+    model2:
+      class: sklearn.linear_model.TheilSenRegressor
+      kwargs:
+        fit_intercept: True
+        random_state: ${GLOBAL_SEED}
+
+    final_estimator:
+      class: sklearn.linear_model.Ridge
+      kwargs:
+        fit_intercept: True

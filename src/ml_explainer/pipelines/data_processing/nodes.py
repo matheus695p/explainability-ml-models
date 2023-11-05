@@ -4,10 +4,10 @@ import pandas as pd
 def _is_true(x: pd.Series) -> pd.Series:
     """
     The function `_is_true` checks if each element in a pandas Series is equal to the string "t".
-    
+
     Args:
       x (pd.Series): pd.Series - a pandas Series object containing values
-    
+
     Returns:
       The function `_is_true` returns a pandas Series object where each element is a boolean value
     indicating whether the corresponding element in the input Series `x` is equal to the string "t".
@@ -19,10 +19,10 @@ def _parse_percentage(x: pd.Series) -> pd.Series:
     """
     The function `_parse_percentage` removes the percentage sign from a pandas Series and converts the
     values to floats.
-    
+
     Args:
       x (pd.Series): pd.Series - a pandas Series object containing percentage values as strings.
-    
+
     Returns:
       a pandas Series object.
     """
@@ -35,10 +35,10 @@ def _parse_money(x: pd.Series) -> pd.Series:
     """
     The function `_parse_money` removes dollar signs and commas from a pandas Series of strings
     representing money values, and converts them to floats.
-    
+
     Args:
       x (pd.Series): x is a pandas Series object containing strings representing monetary values.
-    
+
     Returns:
       a pandas Series object.
     """
@@ -92,8 +92,6 @@ def create_model_input_table(
     rated_shuttles = shuttles.merge(reviews, left_on="id", right_on="shuttle_id")
     rated_shuttles = rated_shuttles.drop("id", axis=1)
     companies = companies.drop_duplicates()
-    model_input_table = rated_shuttles.merge(
-        companies, left_on="company_id", right_on="id"
-    )
+    model_input_table = rated_shuttles.merge(companies, left_on="company_id", right_on="id")
     model_input_table = model_input_table.dropna()
     return model_input_table
