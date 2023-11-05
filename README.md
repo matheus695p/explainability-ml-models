@@ -20,21 +20,18 @@ The primary goal of this project is to create an ML package that can automatical
 
 [Interpretability Report](https://github.com/matheus695p/explainability-ml-models/blob/main/ExplainabilityReport.md)
 
-
-## Generate a report
-```
-kedro run
-```
-
-Specifically to the report:
-
-```
-kedro run --pipeline explainer --nodes=explainability_report
-```
-
 ### Getting Started
 
-To get started with this project, refer to the [Kedro documentation](https://docs.kedro.org) for comprehensive guidance. You can learn how to set up and utilize this ML explainer package effectively.
+To get started with this project, follow these steps:
+
+1. Clone the repository to your local machine.
+2. Create a `.env` file in the project's root directory.
+3. Add your OpenAI API keys to the `.env` file as follows:
+
+```env
+OPENAI_API_BASE="YOUR_OPENAI_API_BASE"
+OPENAI_API_KEY="YOUR_OPENAI_API_KEY_HERE"
+```
 
 ## How to Install Dependencies
 
@@ -51,3 +48,15 @@ Navigate to the project directory and run the following command:
 
 ```bash
 pip install -r src/requirements.txt
+
+
+## Generate a report
+```
+kedro run
+```
+
+Specifically to the report:
+
+```
+kedro run --pipeline explainer --nodes=explainability_report
+```
