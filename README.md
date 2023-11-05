@@ -18,7 +18,19 @@ The primary goal of this project is to create an ML package that can automatical
 
 ## Example of Explanability report generated using GenAI
 
-[Kedro documentation](https://docs.kedro.org)
+[Interpretability Report](https://github.com/matheus695p/explainability-ml-models/blob/main/ExplainabilityReport.md)
+
+
+## Generate a report
+```
+kedro run
+```
+
+Specifically to the report:
+
+```
+kedro run --pipeline explainer --nodes=explainability_report
+```
 
 ### Getting Started
 
