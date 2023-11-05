@@ -1,6 +1,7 @@
 import os
 
 import openai
+import logging
 import typing as tp
 import pandas as pd
 from dotenv import find_dotenv, load_dotenv
@@ -13,6 +14,8 @@ from ml_explainer.model.shap_values import generate_msg_by_index, generate_shap_
 _ = load_dotenv(find_dotenv())
 openai.api_base = os.environ["OPENAI_API_KEY"]
 openai.api_key = os.environ["OPENAI_API_BASE"]
+
+logger = logging.getLogger(__name__)
 
 
 def answer_question_with_llm(
@@ -129,6 +132,8 @@ def generate_explainability_report(
             llm=llm,
             question=question,
         )
+        logging_str = f"{question_key} / {question}: {answer}"
+        logger.info(logging_str)
         final_answer += answer
 
     # answer all the particular question to the inference
@@ -146,11 +151,18 @@ def generate_explainability_report(
                 llm=llm,
                 question=question,
             )
+            logging_str = f"{question_key} / {question}: {answer}"
+            logger.info(logging_str)
             final_answer += answer
+
+    logger.info("==================== Final Anser  ====================")
+    logger.info(final_answer)
+    final_answer = final_answer.replace("\n\n", "\n")
 
     formatting_question = report_params["formatting_question"] + "\n" + final_answer
 
-    report = answer_question_with_llm(
+    # TODO: add a final formatter of the text
+    _ = answer_question_with_llm(
         template=template,
         feature_description_msg="",
         feature_importance_msg="",
@@ -159,6 +171,5 @@ def generate_explainability_report(
         question=formatting_question,
     )
     return dict(
-        report=report,
-        final_answer=final_answer,
+        report=final_answer,
     )

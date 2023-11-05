@@ -114,7 +114,3 @@ regressor:
 explainability_report:
   type: text.TextDataSet
   filepath: ExplainabilityReport.md
-
-explainability_report_unformatted:
-  type: text.TextDataSet
-  filepath: explainability_report_unformatted.md

@@ -29,7 +29,6 @@ def create_pipeline(**kwargs) -> Pipeline:
                 ),
                 outputs=dict(
                     report="explainability_report",
-                    final_answer="explainability_report_unformatted",
                 ),
                 name="explainability_report",
             ),
